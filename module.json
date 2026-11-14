@@ -1,0 +1,63 @@
+{
+    "name": "loan-customers",
+    "version": "1.0.0",
+    "kernel": "^1.21.0",
+    "solves": "customers.management",
+    "type": "module",
+    "requires": [
+        "database.management",
+        "sync.offline"
+    ],
+    "exposes": [
+        "Plugins\\LoanCustomers\\API\\Contracts\\CustomerServiceContract"
+    ],
+    "routePrefix": "/api/customers",
+    "routeFilters": [
+        "auth"
+    ],
+    "routes": [
+        {
+            "method": "GET",
+            "path": "",
+            "handler": "Plugins\\LoanCustomers\\Infrastructure\\Http\\Controllers\\CustomerController@index",
+            "name": "customers.index"
+        },
+        {
+            "method": "POST",
+            "path": "",
+            "handler": "Plugins\\LoanCustomers\\Infrastructure\\Http\\Controllers\\CustomerController@store",
+            "name": "customers.store"
+        },
+        {
+            "method": "GET",
+            "path": "/{id:num}",
+            "handler": "Plugins\\LoanCustomers\\Infrastructure\\Http\\Controllers\\CustomerController@show",
+            "name": "customers.show"
+        },
+        {
+            "method": "PUT",
+            "path": "/{id:num}",
+            "handler": "Plugins\\LoanCustomers\\Infrastructure\\Http\\Controllers\\CustomerController@update",
+            "name": "customers.update"
+        },
+        {
+            "method": "PATCH",
+            "path": "/{id:num}",
+            "handler": "Plugins\\LoanCustomers\\Infrastructure\\Http\\Controllers\\CustomerController@update",
+            "name": "customers.patch"
+        },
+        {
+            "method": "DELETE",
+            "path": "/{id:num}",
+            "handler": "Plugins\\LoanCustomers\\Infrastructure\\Http\\Controllers\\CustomerController@destroy",
+            "name": "customers.destroy"
+        }
+    ],
+    "emits": [
+        "customer.created",
+        "customer.updated",
+        "customer.deleted"
+    ],
+    "documentation": "Borrowers. Owns the customers table. Every write takes a new sync rev in the same transaction, and a delete is a tombstone so handsets pull it. Addresses are the four-level Uganda tree stored as names; guarantor and documents are typed JSON with malformed blobs preserved verbatim rather than dropped.",
+    "config": []
+}
